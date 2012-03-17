@@ -2,7 +2,8 @@
 /**
  * @author Colin
  */
-package {
+package com.fastframework.view{
+	import com.fastframework.core.IFASTEventDispatcher;
 	public interface IButtonClip extends IFASTEventDispatcher{
 		function addElement(element:IButtonElement):IButtonClip;
 		function getElements():Array;

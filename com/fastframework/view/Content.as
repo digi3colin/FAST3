@@ -1,5 +1,6 @@
-﻿package {
-	import com.fastframework.core.EventDispatcherUtils;
+﻿package com.fastframework.view {
+	import com.fastframework.core.FASTEventDispatcher;
+	import com.fastframework.core.IFASTEventDispatcher;
 	import com.fastframework.core.navigation.Navigation;
 	import com.fastframework.core.navigation.NavigationEvent;
 	import com.fastframework.motion.MotionTween;
@@ -8,16 +9,16 @@
 	import com.fastframework.net.LoaderEvent;
 	import com.fastframework.net.LoaderFactory;
 	import com.fastframework.utils.SystemUtils;
+
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 
 
 
 	/**
  * @author Colin
  */
-	public class Content extends EventDispatcher implements IFASTEventDispatcher{
+	public class Content extends FASTEventDispatcher implements IFASTEventDispatcher{
 		private var path:String;
 		private var base:Sprite;
 		private var prefix:String;
@@ -47,8 +48,8 @@
 			mc.addChild(movieContainer = new Sprite());
 			movieContainer.alpha=0.01;
 
-			fadein  = new Motion(movieContainer,{a:100});
-			fadeout = new Motion(movieContainer,{a:0});
+			fadein  = new MotionTween(movieContainer,{a:100});
+			fadeout = new MotionTween(movieContainer,{a:0});
 			fadeout.when(MotionTweenEvent.END, this, onFadeOutAndLoad);
 
 			Navigation.instance().when(NavigationEvent.CHANGE, this, onNavChange);
@@ -89,11 +90,6 @@
 			}
 			movieContainer.alpha=0.01;
 			fadein.startTween();
-		}
-	
-		public function when(eventType : String, whichObject : Object, callFunction : Function) : * {
-			EventDispatcherUtils.instance().when(this,eventType,whichObject,callFunction);
-			return this;
 		}
 	}
 }

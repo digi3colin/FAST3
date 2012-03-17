@@ -1,4 +1,4 @@
-package {
+package com.fastframework.utils{
 	import flash.events.Event;
 
 	/**

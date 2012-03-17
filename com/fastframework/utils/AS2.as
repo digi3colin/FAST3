@@ -1,4 +1,4 @@
-﻿package {
+﻿package com.fastframework.utils{
 	import com.fastframework.core.SingletonError;
 	import flash.display.DisplayObjectContainer;
 	import flash.net.URLRequest;

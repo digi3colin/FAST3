@@ -1,7 +1,7 @@
 ﻿/**
  * @author Colin
  */
-package {
+package com.fastframework.view{
 	import com.fastframework.view.events.ButtonClipEvent;	
 
 	public interface IButtonElement {

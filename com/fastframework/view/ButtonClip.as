@@ -1,22 +1,20 @@
-﻿package {
-	import com.fastframework.core.EventDispatcherUtils;
+﻿package com.fastframework.view {
+	import com.fastframework.core.FASTEventDispatcher;
 	import com.fastframework.motion.MotionTween;
 	import com.fastframework.utils.MovieClipTools;
-	import com.fastframework.view.ButtonEvt;
 	import com.fastframework.view.events.ButtonClipEvent;
 
 	import flash.display.DisplayObjectContainer;
-	import flash.display.SimpleButton;
+	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
+
 
 	/**
 	 * @author Colin
  */
-	final public class ButtonClip extends EventDispatcher implements IButtonClip{
+	final public class ButtonClip extends FASTEventDispatcher implements IButtonClip{
 		private var motion:MotionTween;
-		
-		public var _hitArea:SimpleButton;
+
 		private var base:ButtonEvt;
 		private var count:int;
 		private var _enabled : Boolean = true;
@@ -25,15 +23,15 @@
 
         public var repeatPerFrame:int = 0;
 
-		public function ButtonClip(mc:DisplayObjectContainer) {
-			view = mc;
-		    _hitArea = MovieClipTools.findButton(mc);
+		public function ButtonClip(view:Sprite) {
+			this.view = view;
 
-		    base = new ButtonEvt(_hitArea);
+		    base = new ButtonEvt(MovieClipTools.findButton(view));
 		    base.when(ButtonClipEvent.MOUSE_DOWN,this,down);
 		    base.when(ButtonClipEvent.MOUSE_UP,this,up);
-		    mc.addEventListener(Event.ENTER_FRAME, loop);
-		    motion = new MotionTween(mc);
+		    view.addEventListener(Event.ENTER_FRAME, loop);
+
+		    motion = new MotionTween(view);
 
 			//fix the event in target
 			base.when(ButtonClipEvent.MOUSE_OVER, this,forwardEvent);
@@ -63,11 +61,6 @@
 		public function select() : IButtonClip {
 	        base.select();
 	        return this;
-		}
-
-		public function when(eventType : String, whichObject : Object, callFunction : Function) : * {
-			EventDispatcherUtils.instance().when(this, eventType, whichObject, callFunction);
-			return this;
 		}
 		
 		public function setMouseOverDelay(miniSecond : int) : IButtonClip {

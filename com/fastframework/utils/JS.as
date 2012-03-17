@@ -1,14 +1,15 @@
-﻿package {
-	import com.fastframework.core.EventDispatcherUtils;
+﻿package com.fastframework.utils {
+	import com.fastframework.core.FASTEventDispatcher;
+	import com.fastframework.core.IFASTEventDispatcher;
 	import com.fastframework.core.SingletonError;
-	import flash.events.EventDispatcher;
+
 	import flash.external.ExternalInterface;
 
 
 	/**
 	 * @author colin
 	 */
-	final public class JS extends EventDispatcher implements IFASTEventDispatcher{
+	final public class JS extends FASTEventDispatcher implements IFASTEventDispatcher{
 
 		private static var ins:JS;
 		public static function instance():JS {
@@ -29,11 +30,6 @@
 		
 		private function jscall(str:String):void{
 			dispatchEvent(new JSEvent(JSEvent.CALLBACK,str));
-		}
-		
-		public function when(eventType : String, whichObject : Object, callFunction : Function) : * {
-			EventDispatcherUtils.instance().when(this, eventType, whichObject, callFunction);
-			return this;
 		}
 	}
 }

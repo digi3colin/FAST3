@@ -1,4 +1,4 @@
-﻿package {
+﻿package com.fastframework.view{
 	import com.fastframework.motion.MotionTween;
 	import com.fastframework.view.events.ButtonClipEvent;
 

@@ -1,7 +1,8 @@
-﻿package {
-	import com.fastframework.core.EventDispatcherUtils;
+﻿package com.fastframework.view {
+	import com.fastframework.core.FASTEventDispatcher;
+	import com.fastframework.core.IFASTEventDispatcher;
+
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.events.FocusEvent;
 	import flash.events.KeyboardEvent;
 	import flash.text.TextField;
@@ -31,7 +32,7 @@ function invalid(e:Event):void{
 }
 	  * 
 	  */
-	public class SmartTextField extends EventDispatcher implements IFASTEventDispatcher{
+	public class SmartTextField extends FASTEventDispatcher implements IFASTEventDispatcher{
 		private var _validateFunction:Function;
 		private var _submitFunction:Function;
 		private var base:TextField;
@@ -113,11 +114,6 @@ function invalid(e:Event):void{
 
 			_submitFunction();
 			return true;
-		}
-		
-		public function when(eventType : String, whichObject : Object, callFunction : Function) : * {
-			EventDispatcherUtils.instance().when(this,eventType,whichObject,callFunction);
-			return this;
 		}
 		
 		private function focusOut(e:FocusEvent):void{
