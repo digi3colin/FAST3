@@ -53,7 +53,7 @@
 	 */
 	public class All {
 		public function All(){
-		AS2;
+			AS2;
 			ButtonClip;
 			ButtonIcon;
 
