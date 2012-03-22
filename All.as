@@ -47,7 +47,6 @@
 	import com.fastframework.view.SmartTextField;
 	import com.fastframework.view.ToolTips;
 	import com.fastframework.view.events.ButtonClipEvent;
-	import doot.Content;
 
 	/**
 	 * @author colin
@@ -57,7 +56,7 @@
 		AS2;
 			ButtonClip;
 			ButtonIcon;
-			Content;
+
 			FASTRadioButton;
 			JS;
 			JSEvent;
