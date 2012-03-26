@@ -19,12 +19,12 @@
 
 		public function NavButton(hitarea:SimpleButton,navKey:String,targetContainer:String=''){			
 			base = new ButtonEvt(hitarea);
-			base.when(ButtonClipEvent.CLICK, this,click);
+			base.when(ButtonClipEvent.CLICK, click);
 
 			this.navKey = navKey;
 			this.targetContainer = targetContainer;
 
-			Navigation.instance().when(NavigationEvent.CHANGE,this,highlightButton);
+			Navigation.instance().when(NavigationEvent.CHANGE, highlightButton);
 		}
 
 		private function click(e:ButtonClipEvent):void{

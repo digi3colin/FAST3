@@ -21,18 +21,18 @@ package com.fastframework.view {
 			label = MovieClipTools.findTextField(view);
 			base = new ButtonClip(view);
 
-			base.when(ButtonClipEvent.CLICK, this, onItemClick);
+			base.when(ButtonClipEvent.CLICK, onItemClick);
 
 			//fix the event in target
-			base.when(ButtonClipEvent.MOUSE_OVER, this,forwardEvent);
-			base.when(ButtonClipEvent.MOUSE_OUT, this,forwardEvent);
-			base.when(ButtonClipEvent.ROLL_OVER, this,forwardEvent);
-			base.when(ButtonClipEvent.ROLL_OUT, this,forwardEvent);
-			base.when(ButtonClipEvent.MOUSE_DOWN, this,forwardEvent);
-			base.when(ButtonClipEvent.MOUSE_UP, this,forwardEvent);
-			base.when(ButtonClipEvent.RESET, this,forwardEvent);
-			base.when(ButtonClipEvent.CLICK, this,forwardEvent);
-			base.when(ButtonClipEvent.SELECT, this,forwardEvent);
+			base.when(ButtonClipEvent.MOUSE_OVER, 	forwardEvent);
+			base.when(ButtonClipEvent.MOUSE_OUT, 	forwardEvent);
+			base.when(ButtonClipEvent.ROLL_OVER, 	forwardEvent);
+			base.when(ButtonClipEvent.ROLL_OUT, 	forwardEvent);
+			base.when(ButtonClipEvent.MOUSE_DOWN, 	forwardEvent);
+			base.when(ButtonClipEvent.MOUSE_UP, 	forwardEvent);
+			base.when(ButtonClipEvent.RESET, 		forwardEvent);
+			base.when(ButtonClipEvent.CLICK, 		forwardEvent);
+			base.when(ButtonClipEvent.SELECT, 		forwardEvent);
 		}
 		
 		private function forwardEvent(e:ButtonClipEvent):void{

@@ -35,7 +35,7 @@ package com.fastframework.javascript.facebook {
 		public function FBUser() {
 			if(ins!=null)throw new SingletonError(this);ins = this;
 			
-			FBConnect.instance().when(FBConnectEvent.CALLBACK, this, fbCallback);
+			FBConnect.instance().when(FBConnectEvent.CALLBACK,  fbCallback);
 		}
 		
 		private function fbCallback(e:FBConnectEvent):void{

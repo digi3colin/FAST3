@@ -25,8 +25,8 @@
 			this.view = view;
 
 			base = new ButtonClip(view);
-			base.when(ButtonClipEvent.CLICK, this, onClick);
-			base.when(ButtonClipEvent.SELECT, this, onSelect);
+			base.when(ButtonClipEvent.CLICK, 	onClick);
+			base.when(ButtonClipEvent.SELECT, 	onSelect);
 
 			var para:Array;
 			if(parameter==null){

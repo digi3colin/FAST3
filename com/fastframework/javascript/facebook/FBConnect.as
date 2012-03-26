@@ -18,7 +18,7 @@
 		public function FBConnect() {
 			if(ins!=null)throw new SingletonError(this);ins = this;
 			
-			JS.instance().when(JSEvent.CALLBACK,this,jscall);
+			JS.instance().when(JSEvent.CALLBACK,jscall);
 			JS.instance().call('onFlashReady');
 		}
 		

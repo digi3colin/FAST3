@@ -15,17 +15,17 @@
 		public function LoadingQueue(loader:ILoader,queueId:int=0){
 			this.loader = loader;
 			this.queueId = queueId;
-			this.loader.when(LoaderEvent.READY, 		this, nextCommand);
-			this.loader.when(LoaderEvent.IO_ERROR, 		this, nextCommand);
-			this.loader.when(LoaderEvent.UNLOAD, 		this, nextCommand);
+			this.loader.when(LoaderEvent.READY, 		nextCommand);
+			this.loader.when(LoaderEvent.IO_ERROR, 		nextCommand);
+			this.loader.when(LoaderEvent.UNLOAD, 		nextCommand);
 
-			this.loader.when(LoaderEvent.COMPLETE, 		this, forwardEvent);
-			this.loader.when(LoaderEvent.IO_ERROR, 		this, forwardEvent);
-			this.loader.when(LoaderEvent.HTTP_STATUS, 	this, forwardEvent);
-			this.loader.when(LoaderEvent.OPEN, 			this, forwardEvent);
-			this.loader.when(LoaderEvent.PROGRESS, 		this, forwardEvent);
-			this.loader.when(LoaderEvent.UNLOAD, 		this, forwardEvent);
-			this.loader.when(LoaderEvent.READY,			this, forwardEvent);
+			this.loader.when(LoaderEvent.COMPLETE, 		forwardEvent);
+			this.loader.when(LoaderEvent.IO_ERROR, 		forwardEvent);
+			this.loader.when(LoaderEvent.HTTP_STATUS, 	forwardEvent);
+			this.loader.when(LoaderEvent.OPEN, 			forwardEvent);
+			this.loader.when(LoaderEvent.PROGRESS, 		forwardEvent);
+			this.loader.when(LoaderEvent.UNLOAD, 		forwardEvent);
+			this.loader.when(LoaderEvent.READY,			forwardEvent);
 		}
 
 		private function nextCommand(e:Event):void{

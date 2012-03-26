@@ -83,10 +83,10 @@
 
 		public function addElement(element:IButtonElement):IButtonClip{
 			elements.push(element);
-			this.when(ButtonClipEvent.MOUSE_OVER , element, element.buttonOver);
-			this.when(ButtonClipEvent.MOUSE_OUT  , element, element.buttonOut);
-			this.when(ButtonClipEvent.MOUSE_DOWN , element, element.buttonDown);
-			this.when(ButtonClipEvent.RESET      , element, element.buttonReset);
+			this.when(ButtonClipEvent.MOUSE_OVER , element.buttonOver);
+			this.when(ButtonClipEvent.MOUSE_OUT  , element.buttonOut);
+			this.when(ButtonClipEvent.MOUSE_DOWN , element.buttonDown);
+			this.when(ButtonClipEvent.RESET      , element.buttonReset);
 
 			//immediate reset the element's status.
 			element.buttonReset(new ButtonClipEvent(ButtonClipEvent.RESET,isHighlight));

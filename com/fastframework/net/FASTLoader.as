@@ -23,14 +23,14 @@
 			this.behaviour = behaviour;
 			
 			this.loader = loader;
-			this.loader.when(ProgressEvent.PROGRESS, 		this, onProgress);
-			this.loader.when(Event.COMPLETE, 				this,onLoad);
-			this.loader.when(IOErrorEvent.IO_ERROR, 		this,onIOError);
-			this.loader.when(HTTPStatusEvent.HTTP_STATUS, 	this,onHttpStatus);
-			this.loader.when(Event.UNLOAD, 					this,onUnload);
+			this.loader.when(ProgressEvent.PROGRESS, 		onProgress);
+			this.loader.when(Event.COMPLETE, 				onLoad);
+			this.loader.when(IOErrorEvent.IO_ERROR, 		onIOError);
+			this.loader.when(HTTPStatusEvent.HTTP_STATUS, 	onHttpStatus);
+			this.loader.when(Event.UNLOAD, 					onUnload);
 
-			this.loader.when(LoaderEvent.READY,	this,onReady);
-			this.loader.when(Event.OPEN, 		this,onOpen);
+			this.loader.when(LoaderEvent.READY,	onReady);
+			this.loader.when(Event.OPEN, 		onOpen);
 
 		}
 
