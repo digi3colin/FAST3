@@ -14,14 +14,9 @@
 			if(ins!=null)return;
 			ins = this;
 		}
-		public function when(ins:IFASTEventDispatcher,eventType : String, whichObject : Object, callback : Function):void{
-			ins.addEventListener(eventType, callback, false, 0, true);
-			whichObject;
-		}
 
-		public function once(ins:IFASTEventDispatcher, eventType:String, whichObject:Object, callback:Function):*{
+		public function once(ins:IFASTEventDispatcher, eventType:String, callback:Function):*{
 			ins.addEventListener(eventType,onceHandler(callback));
-			whichObject;
 			return this;
 		}
 
