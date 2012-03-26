@@ -1,4 +1,4 @@
-package com.fastframework.view {
+﻿package com.fastframework.view {
 	import com.fastframework.core.FASTEventDispatcher;
 	import com.fastframework.core.IFASTEventDispatcher;
 	import com.fastframework.core.utils.MovieClipTools;
