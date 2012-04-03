@@ -3,24 +3,26 @@
 	import com.fastframework.core.FASTLog;
 	import com.fastframework.core.utils.MovieClipTools;
 	import com.fastframework.view.events.ButtonClipEvent;
+
 	import flash.display.SimpleButton;
 	import flash.events.MouseEvent;
-	import flash.utils.clearTimeout;
-	import flash.utils.setTimeout;
-
-
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 
 	/**
 	 * @author Colin
 	 */
 	final public class ButtonEvt extends FASTEventDispatcher implements IButtonClip{
+		private var mouseX:Number;
+		private var mouseY:Number;
+
 		private var isHighlight:Boolean = false;
-		private var overDelay : int=0;
-		private var outDelay:int=0;
-		private var overIID:uint;
-		private var outIID:uint;
-		private var elements : Array;
-		
+		private var overDelay 	:Number=0;
+		private var outDelay	:Number=0;
+		private var timerOver	:Timer;
+		private var timerOut	:Timer;
+		private var elements 	:Array;
+
 		private var hitarea:SimpleButton;
 
 		public function ButtonEvt(hitarea:SimpleButton){
@@ -30,55 +32,64 @@
 			hitarea.addEventListener(MouseEvent.ROLL_OUT,   out,	false,0,true);
 			hitarea.addEventListener(MouseEvent.CLICK,		click,	false,0,true);
 			hitarea.addEventListener(MouseEvent.MOUSE_DOWN, down,	false,0,true);
+			
+			timerOver = new Timer(overDelay,1);
+			timerOver.addEventListener(TimerEvent.TIMER, doOver, false, 0, true);
+
+			timerOut = new Timer(overDelay,1);
+			timerOut.addEventListener(TimerEvent.TIMER, doOut, false, 0, true);
 		}
 
-		private function clearIID():void{
-			clearTimeout(overIID);
-			clearTimeout(outIID);
+		private function onOverOut(e:MouseEvent):void{
+			timerOut.reset();
+			timerOver.reset();
+			mouseX = e.stageX;
+			mouseY = e.stageY;
 		}
 
 		private function over(e:MouseEvent):void{
-			clearIID();
+			onOverOut(e);
+
 			if(overDelay==0){
 				doOver();
 			}else{
-				overIID = setTimeout(doOver,overDelay);
+				timerOver.start();
 			}
 		}
 	
 		private function doOver():void{
-			clearIID();
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_OVER, isHighlight));
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.ROLL_OVER , isHighlight));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_OVER, isHighlight,mouseX,mouseY));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.ROLL_OVER , isHighlight,mouseX,mouseY));
 		}
 
 		private function out(e:MouseEvent):void{
-			clearIID();
+			onOverOut(e);
+
 			if(outDelay==0){
 				doOut();
 			}else{
-				outIID = setTimeout(doOut,outDelay);
+				timerOut.start();
 			}
 		}
 		
 		private function doOut():void{
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_OUT , isHighlight));
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.ROLL_OUT  , isHighlight));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_OUT , isHighlight,mouseX,mouseY));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.ROLL_OUT  , isHighlight,mouseX,mouseY));
 		}
 
 		private function click(e:MouseEvent):void {
 			FASTLog.instance().log("[ButtonEvt]:"+MovieClipTools.print(SimpleButton(e.target)) + ":click/mouseup",	FASTLog.LOG_LEVEL_DETAIL);
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_UP	, isHighlight));
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.CLICK		, isHighlight));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_UP	, isHighlight,e.stageX,e.stageY));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.CLICK		, isHighlight,e.stageX,e.stageY));
 		}
 	
 		private function down(e:MouseEvent):void{
 			FASTLog.instance().log("[ButtonEvt]:"+MovieClipTools.print(SimpleButton(e.target))+":mousedown",		FASTLog.LOG_LEVEL_DETAIL);
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_DOWN, isHighlight));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.MOUSE_DOWN, isHighlight,e.stageX,e.stageY));
 		}
-		
+
 		private function reset():void{
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.RESET     , isHighlight));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.RESET     , isHighlight,0,0));
 		}
 
 		public function addElement(element:IButtonElement):IButtonClip{
@@ -89,7 +100,7 @@
 			this.when(ButtonClipEvent.RESET      , element.buttonReset);
 
 			//immediate reset the element's status.
-			element.buttonReset(new ButtonClipEvent(ButtonClipEvent.RESET,isHighlight));
+			element.buttonReset(new ButtonClipEvent(ButtonClipEvent.RESET,isHighlight,0,0));
 			return this;
 		}
 
@@ -101,7 +112,7 @@
 			isHighlight = bln;
 			reset();
 			FASTLog.instance().log("[ButtonEvt]:"+MovieClipTools.print(SimpleButton(hitarea))+":select:"+bln,FASTLog.LOG_LEVEL_DETAIL);
-			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.SELECT, isHighlight));
+			dispatchEvent(new ButtonClipEvent(ButtonClipEvent.SELECT, isHighlight,0,0));
 			return this;
 		}
 
@@ -116,12 +127,12 @@
 		}
 	
 		public function clearMouseOver() : IButtonClip {
-			clearTimeout(overIID);
+			timerOver.reset();
 			return this;
 		}
 	
 		public function clearMouseOut() : IButtonClip {
-			clearTimeout(outIID);
+			timerOut.reset();
 			return this;
 		}
 	}

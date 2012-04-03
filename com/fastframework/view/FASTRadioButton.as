@@ -51,12 +51,12 @@
 		}
 
 		private function onSelect(e:ButtonClipEvent):void{
-			dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.bubbles,e.cancelable));		
+			dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.stageX,e.stageY,e.bubbles,e.cancelable));		
 		}
 
 		private function onClick(e:ButtonClipEvent):void{
 			this.select(true);
-			dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.bubbles,e.cancelable));
+			dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.stageX,e.stageY,e.bubbles,e.cancelable));
 		}
 		
 		public function addElement(element : IButtonElement) : IButtonClip {

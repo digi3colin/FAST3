@@ -45,7 +45,7 @@
 
 		private function forwardEvent(e:ButtonClipEvent):void{
 			//flash will change the ButtonClipEvent to Event.. :(
-			this.dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.bubbles,e.cancelable));
+			this.dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.mouseX,e.mouseY,e.bubbles,e.cancelable));
 		}
 
 		public function addElement(element : IButtonElement) : IButtonClip {
