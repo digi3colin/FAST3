@@ -35,11 +35,11 @@
 			base.when(ButtonClipEvent.SELECT, 		forwardEvent);
 		}
 		
-		private function forwardEvent(e:ButtonClipEvent):void{
+		private function forwardEvent(e:Event):void{
 			this.dispatchEvent(e);
 		}
 
-		private function onItemClick(e:ButtonClipEvent):void{
+		private function onItemClick(e:Event):void{
 			dispatchEvent(new Event(Event.SELECT));
 			dispatchEvent(new ActionEvent(ActionEvent.ACTION,'select'));
 		}

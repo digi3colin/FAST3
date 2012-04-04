@@ -3,7 +3,10 @@
 	import com.fastframework.navigation.Navigation;
 	import com.fastframework.navigation.NavigationEvent;
 	import com.fastframework.view.events.ButtonClipEvent;
+
 	import flash.display.SimpleButton;
+	import flash.events.Event;
+	import flash.utils.Dictionary;
 
 
 
@@ -18,8 +21,7 @@
 		public var targetContainer: String;
 
 		public function NavButton(hitarea:SimpleButton,navKey:String,targetContainer:String=''){			
-			base = new ButtonEvt(hitarea);
-			base.when(ButtonClipEvent.CLICK, click);
+			base = new ButtonEvt(hitarea).when(ButtonClipEvent.CLICK, click);
 
 			this.navKey = navKey;
 			this.targetContainer = targetContainer;
@@ -27,7 +29,7 @@
 			Navigation.instance().when(NavigationEvent.CHANGE, highlightButton);
 		}
 
-		private function click(e:ButtonClipEvent):void{
+		private function click(e:Event):void{
 			Navigation.instance().changeSection(navKey, targetContainer);
 		}
 
@@ -52,10 +54,6 @@
 			return this;
 		}
 		
-		public function getElements():Array{
-			return base.getElements();
-		}
-
 		public function select(bln:Boolean=true) : IButtonClip {
 			base.select(bln);
 			return this;
@@ -79,6 +77,23 @@
 		public function clearMouseOut() : IButtonClip {
 			base.clearMouseOut();
 			return this;
+		}
+
+		public function getElements() : Dictionary {
+			return base.getElements();
+		}
+
+		public function focus(bln : Boolean = true) : IButtonClip {
+			base.focus(bln);
+			return this;
+		}
+
+		public function getSelect() : Boolean {
+			return base.getSelect();
+		}
+
+		public function getFocus() : Boolean {
+			return base.getFocus();
 		}
 	}
 }

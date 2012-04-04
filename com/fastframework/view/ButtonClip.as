@@ -1,7 +1,7 @@
 ﻿package com.fastframework.view {
+	import flash.utils.Dictionary;
 	import com.fastframework.core.FASTEventDispatcher;
 	import com.fastframework.core.utils.MovieClipTools;
-	import com.fastframework.motion.MotionTween;
 	import com.fastframework.view.events.ButtonClipEvent;
 
 	import flash.display.DisplayObjectContainer;
@@ -11,8 +11,6 @@
 	 * @author Colin
  */
 	final public class ButtonClip extends FASTEventDispatcher implements IButtonClip{
-		private var motion:MotionTween;
-
 		private var base:ButtonEvt;
 		private var count:int;
 		private var _enabled : Boolean = true;
@@ -29,8 +27,6 @@
 		    base.when(ButtonClipEvent.MOUSE_UP,		up);
 		    view.addEventListener(Event.ENTER_FRAME,loop);
 
-		    motion = new MotionTween(view);
-
 			//fix the event in target
 			base.when(ButtonClipEvent.MOUSE_OVER,	forwardEvent);
 			base.when(ButtonClipEvent.MOUSE_OUT, 	forwardEvent);
@@ -43,9 +39,10 @@
 			base.when(ButtonClipEvent.SELECT, 		forwardEvent);
 		}
 
-		private function forwardEvent(e:ButtonClipEvent):void{
-			//flash will change the ButtonClipEvent to Event.. :(
-			this.dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.mouseX,e.mouseY,e.bubbles,e.cancelable));
+		private function forwardEvent(e:Event):void{
+			//flash will change the ButtonClipEvent to MouseEvent.. :(
+			this.dispatchEvent(e);
+//			this.dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.mouseX,e.mouseY,e.bubbles,e.cancelable));
 		}
 
 		public function addElement(element : IButtonElement) : IButtonClip {
@@ -53,9 +50,6 @@
 	        return this;
 		}
 		
-		public function getElements():Array{
-	        return base.getElements();
-		}
 		
 		public function select(bln:Boolean=true) : IButtonClip {
 	        base.select(bln);
@@ -81,7 +75,7 @@
 	        base.clearMouseOut();
 	        return this;
 		}
-		
+
 		public function setEnabled(value:Boolean):void{
 			view.visible = value;
 			_enabled = value;
@@ -104,21 +98,30 @@
 			count--;
 		}
 		
-		private function down(e:ButtonClipEvent):void{
+		private function down(e:Event):void{
 		    baseIsDown = true;
 		    count=repeatPerFrame;
 		}
 		
-		private function up(e:ButtonClipEvent):void{
+		private function up(e:Event):void{
 		    baseIsDown = false;
 		}
-		
-		public function getView():DisplayObjectContainer{
-			return view;
+
+		public function focus(bln : Boolean = true) : IButtonClip {
+			base.focus(bln);
+			return this;
 		}
-		
-		public function set alpha(value:Number):void{
-			motion.startTween({a:value});
+
+		public function getSelect() : Boolean {
+			return base.getSelect();
+		}
+
+		public function getFocus() : Boolean {
+			return base.getFocus();
+		}
+
+		public function getElements() : Dictionary {
+			return base.getElements();
 		}
 	}
 }

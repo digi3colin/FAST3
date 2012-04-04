@@ -4,6 +4,7 @@
 
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.utils.Dictionary;
 
 
@@ -50,13 +51,13 @@
 			group = groups[buttonGroupName];
 		}
 
-		private function onSelect(e:ButtonClipEvent):void{
-			dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.stageX,e.stageY,e.bubbles,e.cancelable));		
+		private function onSelect(e:Event):void{
+			dispatchEvent(e);
 		}
 
-		private function onClick(e:ButtonClipEvent):void{
+		private function onClick(e:Event):void{
 			this.select(true);
-			dispatchEvent(new ButtonClipEvent(e.type,e.highlight,e.stageX,e.stageY,e.bubbles,e.cancelable));
+			dispatchEvent(e);
 		}
 		
 		public function addElement(element : IButtonElement) : IButtonClip {
@@ -64,10 +65,6 @@
 			return this;
 		}
 		
-		public function getElements() : Array {
-			return base.getElements();
-		}
-
 		public function select(bln:Boolean = true) : IButtonClip {
 			if(bln==true){
 				Dictionary(groups[buttonGroupName])['selected']=this;
@@ -104,6 +101,23 @@
 		public function getValue():String{
 			if(group['selected']==null)return "";
 			return FASTRadioButton(group['selected']).buttonName;
+		}
+
+		public function getElements() : Dictionary {
+			return base.getElements();
+		}
+
+		public function focus(bln : Boolean = true) : IButtonClip {
+			base.focus(bln);
+			return this;
+		}
+
+		public function getSelect() : Boolean {
+			return base.getSelect();
+		}
+
+		public function getFocus() : Boolean {
+			return base.getFocus();
 		}
 	}
 }

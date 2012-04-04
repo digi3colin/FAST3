@@ -1,8 +1,8 @@
-﻿package com.fastframework.view{
+﻿package com.fastframework.view {
 	import com.fastframework.motion.MotionTween;
-	import com.fastframework.view.events.ButtonClipEvent;
 
 	import flash.display.DisplayObject;
+	import flash.events.Event;
 
 	/**
  * @author colin
@@ -18,17 +18,18 @@
 			if(button!=null)button.addElement(this);
 		}
 	
-		public function buttonOver(e : ButtonClipEvent) : void {			motion.startTween(e.highlight?overHProp:overProp);
+		public function buttonOver(e : Event) : void {
+			motion.startTween(IButtonClip(e.target).getSelect()?overHProp:overProp);
 		}
 		
-		public function buttonOut(e : ButtonClipEvent) : void {
-			motion.startTween(e.highlight?normalHProp:normalProp);
+		public function buttonOut(e : Event) : void {
+			motion.startTween(IButtonClip(e.target).getSelect()?normalHProp:normalProp);
 		}
 		
-		public function buttonDown(e : ButtonClipEvent) : void {
+		public function buttonDown(e : Event) : void {
 		}
 		
-		public function buttonReset(e : ButtonClipEvent) : void {
+		public function buttonReset(e : Event) : void {
 			buttonOut(e);
 		}
 	}

@@ -1,13 +1,13 @@
 ﻿/**
  * @author Colin
  */
-package com.fastframework.view{
-	import com.fastframework.view.events.ButtonClipEvent;	
+package com.fastframework.view {
+	import flash.events.Event;
 
 	public interface IButtonElement {
-		function buttonOver(e:ButtonClipEvent):void;
-		function buttonOut(e:ButtonClipEvent):void;
-		function buttonDown(e:ButtonClipEvent):void;
-		function buttonReset(e:ButtonClipEvent):void;
+		function buttonOver(e:Event):void;
+		function buttonOut(e:Event):void;
+		function buttonDown(e:Event):void;
+		function buttonReset(e:Event):void;
 	}
 }
