@@ -103,7 +103,7 @@
 			this.when(ButtonClipEvent.RESET      , element.buttonReset);
 
 			//immediate reset the element's status.
-			element.buttonReset(new Event(ButtonClipEvent.RESET));
+			element.init(this);
 			return this;
 		}
 

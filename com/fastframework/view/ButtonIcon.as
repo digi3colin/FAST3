@@ -23,7 +23,7 @@
 		}
 		
 		public function buttonOut(e : Event) : void {
-			motion.startTween(IButtonClip(e.target).getSelect()?normalHProp:normalProp);
+			init(IButtonClip(e.target));
 		}
 		
 		public function buttonDown(e : Event) : void {
@@ -31,6 +31,10 @@
 		
 		public function buttonReset(e : Event) : void {
 			buttonOut(e);
+		}
+
+		public function init(btn : IButtonClip) : void {
+			motion.startTween(btn.getSelect()?normalHProp:normalProp);			
 		}
 	}
 }

@@ -9,5 +9,6 @@ package com.fastframework.view {
 		function buttonOut(e:Event):void;
 		function buttonDown(e:Event):void;
 		function buttonReset(e:Event):void;
+		function init(btn:IButtonClip):void;
 	}
 }
