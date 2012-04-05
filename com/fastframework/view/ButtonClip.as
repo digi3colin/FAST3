@@ -1,31 +1,25 @@
 ﻿package com.fastframework.view {
-	import flash.utils.Dictionary;
 	import com.fastframework.core.FASTEventDispatcher;
 	import com.fastframework.core.utils.MovieClipTools;
 	import com.fastframework.view.events.ButtonClipEvent;
 
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Dictionary;
+	import flash.utils.Timer;
 
 	/**
 	 * @author Colin
  */
 	final public class ButtonClip extends FASTEventDispatcher implements IButtonClip{
 		private var base:ButtonEvt;
-		private var count:int;
-		private var _enabled : Boolean = true;
-		private var baseIsDown:Boolean = false;
-		private var view:DisplayObjectContainer;
-
-        public var repeatPerFrame:int = 0;
+		private var repeatTimer:Timer;
 
 		public function ButtonClip(view:DisplayObjectContainer) {
-			this.view = view;
-
 		    base = new ButtonEvt(MovieClipTools.findButton(view));
 		    base.when(ButtonClipEvent.MOUSE_DOWN,	down);
 		    base.when(ButtonClipEvent.MOUSE_UP,		up);
-		    view.addEventListener(Event.ENTER_FRAME,loop);
 
 			//fix the event in target
 			base.when(ButtonClipEvent.MOUSE_OVER,	forwardEvent);
@@ -37,6 +31,7 @@
 			base.when(ButtonClipEvent.RESET, 		forwardEvent);
 			base.when(ButtonClipEvent.CLICK, 		forwardEvent);
 			base.when(ButtonClipEvent.SELECT, 		forwardEvent);
+
 		}
 
 		private function forwardEvent(e:Event):void{
@@ -49,7 +44,6 @@
 	        base.addElement(element);
 	        return this;
 		}
-		
 		
 		public function select(bln:Boolean=true) : IButtonClip {
 	        base.select(bln);
@@ -76,35 +70,27 @@
 	        return this;
 		}
 
-		public function setEnabled(value:Boolean):void{
-			view.visible = value;
-			_enabled = value;
-		}
-		
-		public function getEnabled():Boolean{
-	        return _enabled;
+		public function setRepeat(ms:Number=33):void{
+			if(this.repeatTimer==null){
+				this.repeatTimer = new Timer(ms,0);
+				this.repeatTimer.addEventListener(TimerEvent.TIMER, repeatClick,false, 0, true);
+				return;
+			}
+			this.repeatTimer.delay = ms;
 		}
 
-		private function loop(e:Event):void{
-			if(baseIsDown == false)return;
-			if(repeatPerFrame<=0)return;
-			if(count==0){
-				//trace('up');
-				if(_enabled==true){
-					count = repeatPerFrame;
-					//trace('down');
-				}
-			}
-			count--;
-		}
-		
 		private function down(e:Event):void{
-		    baseIsDown = true;
-		    count=repeatPerFrame;
+			if(this.repeatTimer==null)return;
+			repeatTimer.start();
 		}
 		
 		private function up(e:Event):void{
-		    baseIsDown = false;
+			if(this.repeatTimer==null)return;
+			repeatTimer.stop();
+		}
+
+		private function repeatClick(e:TimerEvent):void{
+			dispatchEvent(new Event(ButtonClipEvent.CLICK));
 		}
 
 		public function focus(bln : Boolean = true) : IButtonClip {
