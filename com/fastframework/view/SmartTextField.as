@@ -36,24 +36,28 @@ function invalid(e:Event):void{
 		private var _validateFunction:Function;
 		private var _submitFunction:Function;
 		private var base:TextField;
-		private var oText:String="";
+		private var oText:String;
 		
-		public var alwaysCheck:Boolean = false;
-		public var focusClear:Boolean = false;
-		public var invalidMsg:String = "input invalid.";
+		public var alwaysCheck:Boolean;
+		public var focusClear:Boolean;
+		public var invalidMsg:String;
 		
 		public static const EVENT_VALID:String = "onValid";
 		public static const EVENT_INVALID:String = "onInvalid";
 		public static const EVENT_RESET:String = "onReset";
 		public static const EVENT_CHANGE:String = Event.CHANGE;
 
-		public function SmartTextField(txf:TextField){
+		public function SmartTextField(txf:TextField,alwaysCheck:Boolean=false,focusClear:Boolean=false,invalidMsg:String='input invalid.'){
 			oText = txf.text;
 			base = txf;
 			base.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown,false,0,true);
 			base.addEventListener(FocusEvent.FOCUS_OUT, focusOut,false,0,true);
 			base.addEventListener(FocusEvent.FOCUS_IN, focusIn,false,0,true);
 			base.addEventListener(Event.CHANGE, onChange,false,0,true);
+
+			this.alwaysCheck = alwaysCheck;
+			this.focusClear = focusClear;
+			this.invalidMsg = invalidMsg;
 		}
 
 		public function setValidateFunction(fnt:Function):void{
@@ -88,7 +92,7 @@ function invalid(e:Event):void{
 			_submitFunction = fnt;
 		}
 
-		public function getBase():TextField{
+		public function getTextField():TextField{
 			return base;
 		}
 		
