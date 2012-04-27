@@ -101,6 +101,22 @@ function invalid(e:Event):void{
 			dispatchEvent(new Event(SmartTextField.EVENT_RESET));
 		}
 
+		public function focus():void{
+			if(base.stage==null){
+				base.addEventListener(Event.ADDED_TO_STAGE, onAddStage, false, 0, true);
+			}
+			doFocus();
+		}
+
+		private function onAddStage(e:Event):void{
+			doFocus();
+		}
+
+		private function doFocus():void{
+			base.stage.focus = base;
+			base.setSelection(0, 0);		
+		}
+
 		private function onChange(e:Event):void{
 			dispatchEvent(new Event(SmartTextField.EVENT_CHANGE));
 		}
