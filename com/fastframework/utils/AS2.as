@@ -1,4 +1,6 @@
 ﻿package com.fastframework.utils{
+	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
 	import com.fastframework.core.SingletonError;
 	import flash.display.DisplayObjectContainer;
 	import flash.net.URLRequest;
@@ -30,12 +32,14 @@
 			return _roots[url];
 		}
 		
-		public function getURL(url:String,window:String=null):void{
-			try {
-				navigateToURL(new URLRequest(url),window);
-    		} catch (e:Error) {
-        		trace("AS2.getURL Error.");
-    		}
+		public function getURL(url:String,window:String=null,postData:URLVariables=null):void{
+			var req:URLRequest = new URLRequest(url);
+			if(postData!=null){
+				req.method = URLRequestMethod.POST;
+				req.data = postData;
+			}
+
+			navigateToURL(req,window);
 		}
 	}
 }

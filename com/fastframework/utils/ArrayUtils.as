@@ -7,7 +7,7 @@
 		public static function suffle(ary:Array) : void {
 			var nLength:Number;
 			var nRandom:Number;
-			var temp:Array;
+			var temp:Object;
 			var i:int;
 			nLength = ary.length;
 			for (i = 0; i < nLength; i++) {
