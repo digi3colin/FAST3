@@ -78,7 +78,7 @@ function invalid(e:Event):void{
 		public function validateWithoutEventDispatch():Boolean{
 			var result:Boolean=false;
 			if(_validateFunction!=null){
-				result = _validateFunction(base.text);
+				result = _validateFunction(getValue());
 			}else{
 				result=true;
 			}			
@@ -94,6 +94,11 @@ function invalid(e:Event):void{
 
 		public function getTextField():TextField{
 			return base;
+		}
+
+		public function getValue():String{
+			if(base.text==oText)return '';
+			return base.text;
 		}
 		
 		public function clear():void{
