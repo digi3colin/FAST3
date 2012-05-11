@@ -21,7 +21,11 @@
 			}finally{}
 
 			receiveBytes.position = 0;
-			xmlContent = new XML(receiveBytes.readUTFBytes(receiveBytes.length));
+			try{
+				xmlContent = new XML(receiveBytes.readUTFBytes(receiveBytes.length));
+			}catch(err:Error){
+				xmlContent = new XML('<error>'+err.message+'</error>');
+			}
 			receiveBytes = null;
 			FASTLog.instance().log(xmlContent.toXMLString(), FASTLog.LOG_LEVEL_DETAIL);
 
