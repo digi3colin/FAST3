@@ -21,7 +21,7 @@
 		}
 	
 		public function Queue(queueId:int=0){
-			if( insArray[queueId] != null ) throw new SingletonError(insArray[queueId]);
+			if( insArray[queueId] != null )return;
 			insArray[queueId] = this;
 
 			commands = new Array();

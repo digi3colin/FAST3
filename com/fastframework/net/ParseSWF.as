@@ -3,7 +3,6 @@
 	import flash.display.Loader;
 	import flash.events.Event;
 
-
 	/**
 	 * @author colin
 	 */
