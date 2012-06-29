@@ -23,7 +23,7 @@
 
 		//the dictionary may have not release. need to check;
 		public function once(ins:IFASTEventDispatcher, eventType:String, callback:Function):void{
-			dict[ins] ||= new Dictionary(true);
+			dict[ins] ||= {};
 
 			if(dict[ins][eventType]==null){
 				dict[ins][eventType] = [];
