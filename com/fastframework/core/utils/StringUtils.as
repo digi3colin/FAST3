@@ -139,5 +139,24 @@
 			} 
 			return sValue+ ((values[1]==null)?"":("."+values[1]));
 		}
+
+		static public function fillPrefixZero(str:String,len:int):String{
+			if(str.length>len)return str;
+
+			var res:String=str;
+			for(var k:int=str.length;k<len;k++){
+				res = '0'+res;
+			}
+			return res;
+		}
+
+		static public function toCharCode(str:String):Vector.<int>{
+			var res:Vector.<int> = new Vector.<int>();
+			var len:int = str.length;
+			for (var i:int = 0; i < len; i++){
+			    res[i] = str.charCodeAt(i);
+			}
+			return res;
+		}
 	}
 }

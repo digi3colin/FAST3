@@ -31,7 +31,7 @@
 		public function show():ProgressBar{
 			if(isShow==true)return this;
 			isShow = true;
-			mt.startTween({a:100});
+			mt.startTween({a:100,dur:5});
 			return this;
 		}
 	

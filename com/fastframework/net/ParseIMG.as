@@ -8,7 +8,7 @@
 		private var bmp:Bitmap;
 		public function ParseIMG(target:DisplayObjectContainer){			this.target = target;
 			bmp = new Bitmap();
-		}
+		}
 
 		public function toBitmapData():BitmapData{
 			return bmp.bitmapData.clone();
