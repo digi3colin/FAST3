@@ -1,6 +1,5 @@
 ﻿package com.fastframework.view {
 	import com.fastframework.core.FASTEventDispatcher;
-	import com.fastframework.core.IFASTEventDispatcher;
 
 	import flash.events.Event;
 	import flash.events.FocusEvent;
@@ -32,7 +31,7 @@ function invalid(e:Event):void{
 }
 	  * 
 	  */
-	public class SmartTextField extends FASTEventDispatcher implements IFASTEventDispatcher{
+	public class SmartTextField extends FASTEventDispatcher implements ISmartTextField{
 		private var _validateFunction:Function;
 		private var _submitFunction:Function;
 		private var base:TextField;
