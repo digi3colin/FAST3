@@ -11,7 +11,7 @@
 	 * @author colin
 	 */
 
-	public class SmartTextField extends FASTEventDispatcher implements IFASTEventDispatcher {
+	public class SmartTextField extends FASTEventDispatcher implements ISmartTextField {
 		private var _validateFunction:Function;
 		private var _submitFunction:Function;
 		private var base:TextField;
