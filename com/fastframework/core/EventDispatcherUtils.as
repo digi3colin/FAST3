@@ -4,7 +4,7 @@
 	/**
 	 * @author colin
 	 */
-	final public class EventDispatcherUtils{
+	internal class EventDispatcherUtils{
 		private var dict:Dictionary;
 		private static var ins:EventDispatcherUtils;
 		public static function instance():EventDispatcherUtils {
@@ -12,7 +12,7 @@
 		}
 
 		public function EventDispatcherUtils() {
-			if(ins!=null)return;
+			if(ins!=null){throw new SingletonError(this);}
 			ins = this;
 			dict = new Dictionary(true);
 		}
@@ -23,7 +23,7 @@
 
 		//the dictionary may have not release. need to check;
 		public function once(ins:IFASTEventDispatcher, eventType:String, callback:Function):void{
-			dict[ins] ||= {};
+			dict[ins] = dict[ins] || {};
 
 			if(dict[ins][eventType]==null){
 				dict[ins][eventType] = [];
@@ -31,17 +31,21 @@
 			}
 
 			(dict[ins][eventType] as Array).push(callback);
-
-//			ins.addEventListener(eventType,onceHandler(callback));
 		}
 
 		private function runonce(e:Event):void{
-			var oArray:Array = (dict[e.target][e.type] as Array);
-			var callbacks:Array = oArray.splice(0, oArray.length);
+			IFASTEventDispatcher(e.target).removeEventListener(e.type, runonce);
 
-			for(var i:int=0;i<callbacks.length;i++){
+			var oArray:Array = (dict[e.target][e.type] as Array);
+			//make a copy of the array. 
+			//to prevent unexpected result of client add event during dispatch
+			var callbacks:Array = oArray.splice(0);
+			var count:int = callbacks.length;
+
+			for(var i:int=0;i<count;i++){
 				callbacks[i](e);
 			}
+
 		}
 
 /*		private function onceHandler(callback:Function):Function{

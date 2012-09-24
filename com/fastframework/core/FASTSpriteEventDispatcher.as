@@ -5,6 +5,7 @@
 
 	/**
 	 * @author Digi3Studio - Colin Leung
+	 * extends this class rather than Sprite to have benifits of FASTEventdispatcher
 	 */
 	public class FASTSpriteEventDispatcher extends Sprite implements IFASTEventDispatcher {
 		public function FASTSpriteEventDispatcher() {
