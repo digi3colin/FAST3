@@ -15,8 +15,9 @@
 	/**
 	 * @author colin
 	 */
-	public class All {
-		public function All(){
+	public class FASTFramwork {
+		public static const VERSION:String = '4.0';
+		public function FASTFramwork(){
 			AS2;
 			//EventDispatcherUtils;
 			FASTEventDispatcher;

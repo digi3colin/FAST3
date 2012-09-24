@@ -1,0 +1,27 @@
+FAST Framework provide simple features to improve memory management in actionscript 3.
+1. AS2
+  - provide missing AS2 features.
+    - getURL
+    - root
+
+2. IFASTEventDispatcher ,FASTEventDispatcher, FASTSpriteEventDispatcher
+  - make event dispatcher better for memory management.
+    - when
+      - to provide weak reference for addEventListener
+    - once
+      - strong reference for addEventListener and will remove once event dispatched.
+
+3. Singleton Error
+  - provide a standard Singleton Error class for singleton class initialize.
+
+4. ILog and FASTLog
+  - simple Logger with different logging level.
+  
+5. Navigation and NavigationEvent
+  - a mediator to handle the multiple level navigation similar to Location/href in html
+  
+6. ILoader and ILoadParser
+  - a common interface for external data loading.
+
+
+package FASTFramework.as to swc 
