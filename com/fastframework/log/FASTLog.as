@@ -7,10 +7,14 @@
 	 */
 	final public class FASTLog implements ILog{
 		private static var ins:FASTLog;
-		public static const LOG_LEVEL_NONE:int = -1;
-		public static const LOG_LEVEL_ERROR:int = 0;
-		public static const LOG_LEVEL_ACTION:int = 10;
-		public static const LOG_LEVEL_DETAIL:int = 20;
+		public static var LOG_LEVEL_NONE:int = -1;
+		public static var LOG_LEVEL_ERROR:int = 0;
+		public static var LOG_LEVEL_ACTION:int = 10;
+		public static var LOG_LEVEL_WARNING : int = 20;
+		public static var LOG_LEVEL_DETAIL : int = 30;
+		public static var LOG_LEVEL_RESULT : int = 40;
+		public static var LOG_LEVEL_ALL : int = 1000;
+
 
 		public var level:int=FASTLog.LOG_LEVEL_ACTION;
 
@@ -51,8 +55,9 @@
 			logger.log(str,debugLevel);
 		}
 
-		public function setLogger(logger:ILog):void{
+		public function setLogger(logger:ILog):ILog{
 			this.logger = logger;
+			return this;
 		}
 	}
 }
