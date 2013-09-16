@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build_swc">
+	<condition property="isMac"><os family="mac" /></condition>
+	<condition property="isWindows"><os family="windows" /></condition>
+
+	<!-- define the operating system specific targets -->
+	<target name="_doMac" if="isMac">
+		<echo>using mac setting</echo>
+		<echo message="ADT mac path not set" />
+	</target>
+	
+	<target name="_doWindows" if="isWindows">
+		<echo>using windows setting</echo>
+		<property name="airpath"   	 value="C:\\Program Files\\FDT\\flex\\4.8\\bin\\"/>
+		<property name="MXMLC"   	 value="${airpath}mxmlc.bat"/>
+		<property name="COMPC"   	 value="${airpath}compc.bat"/>
+		<property name="ProjectPath" value="${basedir}\\.."/>
+		<property name="bin"  		 value="bin\\"/>
+		<property name="lib"  		 value="lib\\"/>
+		<property name="cert" 		 value="cert\\"/>
+	</target>
+
+	<target depends="_doMac, _doWindows" name="build_swc">
+		<exec executable="${COMPC}">
+			<arg value="-target-player=11.4"/>
+			<arg value="-compiler.debug=false"/>
+			<arg value="-source-path" />
+			<arg value="${basedir}" />
+			<arg value="-include-sources" />
+			<arg value="${basedir}" />
+			<arg value="-output" />
+			<arg value="${basedir}\\..\\lib\\fast.swc" />
+		</exec>
+	</target>
+</project>
